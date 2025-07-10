@@ -1,11 +1,24 @@
-name: Tset Workflow
+name:  Spring Boot CI
 
-on: [push]
+on:
+  push:
+     branches: [ "master" ]
+  pull_request:
+     branches: [ "master" ]
 
 jobs:
-  hello-jobs:
-    runs-on: windows-latest
-    steps:
-      - name: Say Hello
-        run: echo "Hello from Github Actions !"
-    
+  build:
+     runs-on: windows-latest
+     
+     steps:
+       - name: Chechout source
+         uses: actions/checkout@v3
+  
+       - name: Set up JDK 17
+         uses: acions/sestuo-java@v3
+         with:
+           java-version: '17'
+           distribution: 'temurin'
+  
+       - name: Build with Maven
+         run: mmvn clean install
